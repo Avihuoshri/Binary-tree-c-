@@ -9,7 +9,7 @@ class Node{
             
             public:
                 Node();
-                ~Node();
+              //  ~Node();
                 Node(int num);
 
             
@@ -24,7 +24,7 @@ class Node{
         public:
             Node* _root;
             Tree();
-            ~Tree();
+          //  ~Tree();
             void  insert(int key);
             void remove(int key);
             int   size();
