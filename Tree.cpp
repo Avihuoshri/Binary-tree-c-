@@ -20,12 +20,12 @@ using ariel::Node;
 		_root = NULL;
 	}
 
-	/*	Tree::~Tree()
+		Tree::~Tree()
 		{
 			destroy_tree(_root);
 		}
 	
-	*/
+	
 		
 		void ariel::Tree::destroy_tree(Node* leaf)
 			{
@@ -264,19 +264,22 @@ void ariel::Tree::remove_value(Node* &root, int key)
 		{
 			if (node == NULL)
 			{
-				throw std::invalid_argument("ERROE : Left child does not exist!");
-				return -1;
+				throw std::invalid_argument("ERROR : Left child does not exist!"); 					return -1;
 			}
-			if (key < node->key)
+			else if (key < node->key)
 			{
 				if (node->left != NULL)
 					getLeftChild(node->left, key);
+				else
+					throw std::invalid_argument("ERROR : Could not find the key in left son");
 			}
 
 			else if (key > node->key)
 			{
 				if (node->right != NULL)
 					getLeftChild(node->right, key);
+				else
+					throw std::invalid_argument("ERROR : Could not find the key in right son");
 			}
 			else
 			{
