@@ -122,7 +122,7 @@ int main() {
 .CHECK_OK(mytree.remove(20))
 
 //TESTING print() : 
-.print()
+.CHECK_OK(mytree.print())
 
 ;
 

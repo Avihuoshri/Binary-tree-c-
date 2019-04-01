@@ -17,7 +17,7 @@ using ariel::Node;
 	ariel::Node::Node(int num) :key(num),left(NULL),right(NULL) {}
 	ariel::Tree::Tree()
 	{
-		_root = nullptr;
+		_root = NULL;
 	}
 
 	/*	Tree::~Tree()
@@ -29,7 +29,7 @@ using ariel::Node;
 		
 		void ariel::Tree::destroy_tree(Node* leaf)
 			{
-				if (leaf != nullptr)
+				if (leaf != NULL)
 				{
 					destroy_tree(leaf->left);
 					destroy_tree(leaf->right);
@@ -40,7 +40,7 @@ using ariel::Node;
 		void ariel::Tree::insert(int key)
 		{
 			if(contains(key)){throw std::invalid_argument("insert exception(value already on the tree)");}
-		else if(_root!=nullptr){insert_value(key,_root);}
+		else if(_root!=NULL){insert_value(key,_root);}
 		else{_root=new Node(key);}
 		}
 
@@ -56,7 +56,7 @@ using ariel::Node;
 			else if (key < leaf->key)
 			{						
 				
-				if (leaf->left != nullptr)
+				if (leaf->left != NULL)
 				{
 					
 					insert_value(key, leaf->left);
@@ -71,7 +71,7 @@ using ariel::Node;
 
 			else if (key > leaf->key)
 			{
-				if (leaf->right != nullptr)
+				if (leaf->right != NULL)
 				{
 					insert_value(key, leaf->right);
 				}
@@ -117,7 +117,7 @@ using ariel::Node;
 
 		int ariel::Tree::Tree_size(Node* node)
 		{
-			if (node == nullptr)
+			if (node == NULL)
 				return 0;
 			else
 				return Tree_size(node->left) + 1 + Tree_size(node->right);
@@ -130,7 +130,7 @@ using ariel::Node;
 			 Node* current = node;
 
 			/* Loop down to find the leftmost leaf */
-			while (current->left != nullptr)
+			while (current->left != NULL)
 				current = current->left;
 
 			return current;
@@ -143,7 +143,7 @@ using ariel::Node;
 
 		bool ariel::Tree::contain_value(Node* node , int key)
 		{
-			if (node == nullptr)
+			if (node == NULL)
 				return false;
 
 			else
@@ -160,144 +160,82 @@ using ariel::Node;
 			}
 		}
 
+		 void ariel::Tree::remove( int key )
+		{
+			if(!contains(key))
+				throw std::invalid_argument("The vakue does not exist!");
+			else	
+			{
+				remove_value(_root, key);
+			}	
+		}
 
-void ariel::Tree::remove(int word)
+//		 Function to delete node from a BST. Note that root is passed by
+ //      reference to the function
+void ariel::Tree::remove_value(Node* &root, int key)
 {
-    if(!contains(word))
-{
-throw std::invalid_argument("no value to remove") ;
+	// base case: key not found in tree
+	if (root == nullptr)
+	{
+		cout<<"tree is empty/n" ;
+		return;
+	}
+	
+
+	// if given key is smaller than the root node, recurse for left subtree
+	if (key < root->key)
+		remove_value(root->left, key);
+
+	// if given key is bigger than the root node, recurse for right subtree
+	else if (key > root->key)
+		remove_value(root->right, key);
+
+	// key found
+	else
+	{
+		// Case 1: node to be removed has no children 
+		if (root->left == nullptr && root->right == nullptr)
+		{
+			// deallocate the memory and update root to null
+			delete root;
+			root = nullptr;
+		}
+
+		// Case 2: node to be removed has two children
+		else if (root->left && root->right)
+		{
+			// find its in-order predecessor node
+			Node *predecessor = minValueNode(root->right);
+
+			// Copy the value of predecessor to current node
+			root->key = predecessor->key;
+
+			// recursively delete the predecessor. Note that the
+			// predecessor will have at-most one child (left child)
+			remove_value(root->right, predecessor->key);
+
+		}
+
+		// Case 3: node to be deleted has only one child
+		else
+		{
+			// find child node
+			Node* child = (root->left)? root->left: root->right;
+			Node* curr = root;
+
+			root = child;
+
+			// deallocate the memory
+			delete curr;
+			
+		}
+	}
 }
-    if(_root == nullptr)
-    {
-        cout << "list is empty\n";
-        return;
-    }
-    Node *curr = _root;
-   Node *parent = nullptr;
 
-    while(curr != nullptr)
-    {
-        if(curr->key == word)
-            break;
-        else
-        {
-            parent = curr;
-            if(word > curr->key)
-                curr = curr->right;
-            else
-                curr = curr->left;
-        }
-    }
-    //LEAF node.
-    if(curr->left == nullptr && curr->right == nullptr)
-    {
-        if (parent == nullptr) {
-if(curr==_root){delete _root; _root=nullptr;}{
-            delete curr; curr=nullptr;}
-        } else {
-            if(parent->left == curr) // Right here is an access violation. Which doesn't //make sense.
-            {
-                parent->left = nullptr;
-            }
-            else
-            {
-                parent->right = nullptr;
-            }
-            delete curr;
-        }
-    }
 
-    /*
-    * Node has a single child LEFT or RIGHT
-    */  
-    else if((curr->left == nullptr && curr->right != nullptr) || (curr->left != nullptr && curr->right == nullptr))
-    {
-        if(curr->left == nullptr && curr->right != nullptr)
-        {
-            if (parent == nullptr) {
-                    _root = curr->right;
-                    curr->right = nullptr;
-                    delete curr;
-            } else {
-                if(parent->left == curr) //if(parent->left == curr) //says parent is //not intialized
-                {
-                    parent->left = curr->right;
-                    delete curr;
-                }
-                else
-                {
-                    parent->right = curr->right;
-                    delete curr;
-                }
-            }
-        }
-
-        else
-        {
-            if (parent == nullptr) {
-                    _root = curr->left;
-                    curr->left = nullptr;
-                    delete curr;
-            } else {
-                if(parent->left == curr)
-                {
-                    parent->left = curr->left;
-                    delete curr;
-                }
-                else
-                {
-                    parent->right = curr->left;
-                    delete curr;
-                }
-            }
-        }
-
-    }
-    else
-    {
-        Node* temp=nullptr; 
-        if(parent == nullptr)
-        {  
-            temp = curr->right;
-            while(temp->left!=nullptr)
-                temp = temp->left;
-            if(parent!=nullptr)
-                parent->left = curr->right;
-            else
-                _root = curr->right;
-            temp->left = curr->left;
-            curr->left = curr->right=nullptr;
-            delete curr;
-
-        } else {
-            if(parent->left==curr){
-                temp = curr->right;
-                while(temp->left!=nullptr)
-                    temp = temp->left;
-                if(parent!=nullptr)
-                    parent->left = curr->right;
-                else
-                    _root = curr->right;
-                temp->left = curr->left;
-                curr->left = curr->right=nullptr;
-                delete curr;
-            }
-            else if(parent->right==curr)
-            {
-                temp = curr->left;
-                while(temp->right!=nullptr)
-                    temp = temp->right;
-                parent->right=curr->left;
-                temp->right = curr->right;
-                curr->left = curr->right=nullptr;
-                delete curr;
-            }
-        }
-    }
-}
 		int ariel::Tree::root()
 		{
-			if (_root == nullptr)
+			if (_root == NULL)
 			{
 				throw std::invalid_argument("ERROE : value NOT found!");
 				return  0;
@@ -317,25 +255,25 @@ if(curr==_root){delete _root; _root=nullptr;}{
 
 		int  ariel::Tree::getLeftChild(Node* node , int key)
 		{
-			if (node == nullptr)
+			if (node == NULL)
 			{
 				throw std::invalid_argument("ERROE : Left child does not exist!");
 				return -1;
 			}
 			if (key < node->key)
 			{
-				if (node->left != nullptr)
+				if (node->left != NULL)
 					getLeftChild(node->left, key);
 			}
 
 			else if (key > node->key)
 			{
-				if (node->right != nullptr)
+				if (node->right != NULL)
 					getLeftChild(node->right, key);
 			}
 			else
 			{
-				if (node->left != nullptr)
+				if (node->left != NULL)
 					return node->left->key;
 
 				else
@@ -354,25 +292,25 @@ if(curr==_root){delete _root; _root=nullptr;}{
 
 			int ariel::Tree:: getRightChild(Node * node , int key)
 			{
-				if (node == nullptr)
+				if (node == NULL)
 				{
 					throw std::invalid_argument("ERROR : Right child does not exist!");	
 					return -1;
 				}
 				if (key < node->key)
 				{
-					if (node->left != nullptr)
+					if (node->left != NULL)
 						getRightChild(node->left, key);
 				}
 
 				else if (key > node->key)
 				{
-					if (node->right != nullptr)
+					if (node->right != NULL)
 						getRightChild(node->right, key);
 				}
 				else
 				{
-					if (node->right != nullptr)
+					if (node->right != NULL)
 						return node->right->key;
 
 					else
@@ -415,7 +353,7 @@ if(curr==_root){delete _root; _root=nullptr;}{
 void ariel::Tree:: print()
 {
 	if(_root == nullptr)
-		throw std::invalid_argument("no value to print");
+		throw std::invalid_argument("harta");
 	else
 		return print(_root);
 
@@ -437,5 +375,4 @@ void ariel::Tree:: print()
 		
 
 			
-
 
