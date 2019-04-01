@@ -39,20 +39,27 @@ using ariel::Node;
 	
 		void ariel::Tree::insert(int key)
 		{
-			if(contains(key)){throw std::invalid_argument("insert exception(value already on the tree)");}
-		else if(_root!=NULL){insert_value(key,_root);}
+			if(contains(key))
+		{
+			throw std::invalid_argument("insert exception(value already on the 				tree)");
+		}
+		else if(_root!=NULL)		
+		{
+			insert_value(key,_root);
+		}
 		else{_root=new Node(key);}
 		}
 
 
 		void Tree::insert_value(int key, Node* leaf)
 		{
-			if(leaf->key==NULL)
+			if(leaf==NULL)
 			{
 				
 				 leaf=new Node(key);
+				 leaf->left = leaf->right = nullptr ;
 			
-		 }
+			}
 			else if (key < leaf->key)
 			{						
 				
