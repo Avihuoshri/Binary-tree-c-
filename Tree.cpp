@@ -20,10 +20,10 @@ using ariel::Node;
 		_root = NULL;
 	}
 
-		Tree::~Tree()
+		/* Tree::~Tree()
 		{
 			destroy_tree(_root);
-		}
+		}*/
 	
 	
 		
