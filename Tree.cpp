@@ -175,15 +175,8 @@ using ariel::Node;
 		{
 			if(!contains(key))
 			{
-				try
-				{
-					throw std::invalid_argument("The value does not exist!");
-				}
-				catch(const std::exception& e)
-				{
-					std::cerr << e.what() << '\n';
-				}
-	
+		     throw std::invalid_argument("the root is not exist");
+
 			}
 			else	
 			{
@@ -258,14 +251,8 @@ void ariel::Tree::remove_value(Node* &root, int key)
 		{
 			if (_root == NULL)
 			{
-				try
-				{
+				
 					throw std::invalid_argument("ERROE : value NOT found!");
-				}
-				catch(const std::exception& e)
-				{
-					std::cerr << e.what() << '\n';
-				}
 				
 			}
 
@@ -313,14 +300,8 @@ void ariel::Tree::remove_value(Node* &root, int key)
 			if (node == NULL)
 			{
 
-				try
-				{
-					throw std::invalid_argument("ERROR : Left child does not exist!"); 		
-				}
-				catch(const std::exception& e)
-				{
-					std::cerr << e.what() << '\n';
-				}
+				        throw std::invalid_argument("the root is not exist");
+
 								
 			}
 			else if (key < node->key)
@@ -329,15 +310,8 @@ void ariel::Tree::remove_value(Node* &root, int key)
 					return getLeftChild(node->left, key);
 				else
 				{
-					try
-					{
-						throw std::invalid_argument("ERROR : Could not find the key in left son"); 		
-					}
-					catch(const std::exception& e)
-					{
-						std::cerr << e.what() << '\n';
-					}
-					return -1 ; 
+					        throw std::invalid_argument("the root is not exist");
+
 				
 				}
 					
@@ -349,16 +323,8 @@ void ariel::Tree::remove_value(Node* &root, int key)
 					return getLeftChild(node->right, key);
 				else
 				{
-						try
-						{
-							throw std::invalid_argument("ERROR : Could not find the key in right son");		
-						}
-						catch(const std::exception& e)
-						{
-							std::cerr << e.what() << '\n';
-						}
-						return -1 ; 
-				}
+                  throw std::invalid_argument("the root is not exist");
+ 				}
 					
 			}
 			else
@@ -368,15 +334,8 @@ void ariel::Tree::remove_value(Node* &root, int key)
 
 				else
 				{
-					try
-						{
-							throw std::invalid_argument("ERROR : Left child does not exist!");	
-						}
-						catch(const std::exception& e)
-						{
-							std::cerr << e.what() << '\n';
-						}
-						return -1 ;
+					        throw std::invalid_argument("the root is not exist");
+
 					
 				}
 			}
@@ -392,15 +351,7 @@ void ariel::Tree::remove_value(Node* &root, int key)
 			{
 				if (node == nullptr)
 				{
-					try
-						{
-							throw std::invalid_argument("ERROR : Right child does not exist!");	
-						}
-						catch(const std::exception& e)
-						{
-							std::cerr << e.what() << '\n';
-						}
-					
+				    throw std::invalid_argument("the root is not exist");
 					
 				}
 				else if (key < node->key)
@@ -410,15 +361,8 @@ void ariel::Tree::remove_value(Node* &root, int key)
 					
 					else
 					{
-						try
-						{
-							throw std::invalid_argument("ERROR : Could not find the key in left son");
-						}
-						catch(const std::exception& e)
-						{
-							std::cerr << e.what() << '\n';
-						}
-					
+					        throw std::invalid_argument("the root is not exist");
+
 
 					}
 			
@@ -431,14 +375,8 @@ void ariel::Tree::remove_value(Node* &root, int key)
 
 					else
 					{
-						try
-						{
-							throw std::invalid_argument("ERROR : Could not find the key in right son");
-						}
-						catch(const std::exception& e)
-						{
-							std::cerr << e.what() << '\n';
-						}
+						        throw std::invalid_argument("the root is not exist");
+
 					
 					}				
 				}
@@ -448,16 +386,8 @@ void ariel::Tree::remove_value(Node* &root, int key)
 
 					else 
 					{
-						try
-						{
-							throw std::invalid_argument("ERROR : Right child does not exist!");
-						}
-						catch(const std::exception& e)
-						{
-							std::cerr << e.what() << '\n';
-						}
-						
-							return -1;
+						        throw std::invalid_argument("the root is not exist");
+
 					}
 				
 			}
@@ -466,43 +396,33 @@ void ariel::Tree::remove_value(Node* &root, int key)
 			{
 				if(!contains(key))
 				{
-					try
-						{
-							throw std::invalid_argument("ERROR : The given number is not in the tree!");
-						}
-						catch(const std::exception& e)
-						{
-							std::cerr << e.what() << '\n';
-						}
-					
-
+				        throw std::invalid_argument("the root is not exist");	
 				}
 
 				return getParent(_root, key);
 			}
 
-			int Tree:: getParent(Node * node, int key)
+			int Tree:: getParent(Node* node, int key)
 			{
+				cout<<"node is : "<<node->key<<endl ;
 				if(key == node->key)
 				{
-					try
-						{
-							throw std::invalid_argument("ERROR : The given number is the root itself that is whY it don't have any parent");
-						}
-						catch(const std::exception& e)
-						{
-							std::cerr << e.what() << '\n';
-						}
+					        throw std::invalid_argument("the root is not exist");
 					
 				}	
 				
-					if (key == node->left->key)
+					if((node->left) != nullptr)
+					{
+						if (key == node->left->key)
 						return node->key;
+					}
 
-					else if (key == node->right->key)
+					else if ((node->right) != nullptr )
+					{
+						if(key == node->right->key)
 						return node->key;
-
-					else if (key < node->key)
+					}
+					else if (key < (node->key))
 						return getParent(node->left, key);
 
 					else
@@ -594,9 +514,5 @@ cout<<"tree size is : "<<treeSize<<endl ;
 	int left_child ;
 	left_child = t.left(10) ;
 	cout<<"left child is : " << left_child<<endl;
-	
-
-
 }
-
 	*/	
