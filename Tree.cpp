@@ -175,11 +175,8 @@ using ariel::Node;
 
 		 void ariel::Tree::remove( int key )
 		{
-			cout<<"SSTAAAM"<<endl ;
 			if(!contains(key))
 			{
-				cout<<"in if(!contains(key) )"<<endl;
-												cout<<"AFTER THROW"<<endl;
 				try
 				{
 					{throw std::invalid_argument("The value does not exist!");}
@@ -195,7 +192,6 @@ using ariel::Node;
 			}
 			else	
 			{
-				cout<<"in remove.else"<<endl ;
 				remove_value(_root, key);
 			}	
 		}
@@ -278,8 +274,9 @@ void ariel::Tree::remove_value(Node* &root, int key)
 		{
 			if(!contains(key))
 				throw std::invalid_argument("ERROR : Left child does not exist!");
-			else if((key == _root->key) && _root->left ==nullptr)
-							throw std::invalid_argument("ERROR : Left child does not exist!");
+		
+			else if((key == _root->key) && _root->left ==NULL)
+					throw std::invalid_argument("ERROR : Left child does not exist!");
 			else
 			{
 				int ans = getLeftChild(_root, key);
@@ -375,6 +372,12 @@ void ariel::Tree::remove_value(Node* &root, int key)
 
 			int Tree:: parent(int key)
 			{
+				if(!contains(key))
+				{
+					throw std::invalid_argument("ERROR : The given number is not in the tree!");
+
+				}
+				
 				return getParent(_root, key);
 			}
 
@@ -382,7 +385,7 @@ void ariel::Tree::remove_value(Node* &root, int key)
 			{
 				if(key == node->key)
 				{
-					throw std::invalid_argument("ERROE : The given number is the root itself that is whY it don't have any parent");
+					throw std::invalid_argument("ERROR : The given number is the root itself that is whY it don't have any parent");
 					return -1;
 				}	
 				else
