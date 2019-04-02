@@ -417,7 +417,7 @@ void ariel::Tree:: print()
 
 				print(node->right);
 			}
-			
+	/*		
 		
 int main()
 {
@@ -453,13 +453,6 @@ cout<<"tree size is : "<<treeSize<<endl ;
 	
 
 
-
-
-
-
-
-	
-
 }
 
-		
+*/		
