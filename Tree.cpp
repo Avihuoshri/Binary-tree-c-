@@ -356,12 +356,13 @@ void ariel::Tree::remove_value(Node* &root, int key)
 						{
 							std::cerr << e.what() << '\n';
 						}
+						return -1 ; 
 				}
 					
 			}
 			else
 			{
-				if (node->left != NULL)
+				if(node->left != NULL)
 					return node->left->key;
 
 				else
@@ -374,7 +375,7 @@ void ariel::Tree::remove_value(Node* &root, int key)
 						{
 							std::cerr << e.what() << '\n';
 						}
-					
+						return -1 ;
 					
 				}
 			}
@@ -545,7 +546,7 @@ void ariel::Tree:: print()
 			
 		
 
-/*
+
 int main()
 {
 ariel::Tree t ;
@@ -600,4 +601,4 @@ cout<<"tree size is : "<<treeSize<<endl ;
 
 }
 
-	*/	
+	
