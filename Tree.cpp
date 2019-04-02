@@ -278,9 +278,15 @@ void ariel::Tree::remove_value(Node* &root, int key)
 		{
 			if(!contains(key))
 				throw std::invalid_argument("ERROR : Left child does not exist!");
-
-			int ans = getLeftChild(_root, key);
-			return ans;
+			else if((key == _root->key) && _root->left ==nullptr)
+							throw std::invalid_argument("ERROR : Left child does not exist!");
+			else
+			{
+				int ans = getLeftChild(_root, key);
+				return ans;
+			}
+			
+		
 		}
 
 		int  ariel::Tree::getLeftChild(Node* node , int key)
@@ -417,20 +423,37 @@ void ariel::Tree:: print()
 
 				print(node->right);
 			}
-	/*		
+			
 		
+
+/*
 int main()
 {
 ariel::Tree t ;
 	int treeSize =  t.size();
 cout<<"tree size is : "<<treeSize<<endl ;
-	t.insert(10);
-	t.insert(4);
 	t.insert(20);
+	t.insert(10);
+	t.insert(15);
+	t.insert(13);
+	t.insert(17);
+	t.insert(4);
 	t.insert(30);
-	t.insert(25);
+	t.insert(32);
+	t.insert(40);
+	t.insert(38);
+	t.insert(19);
+	t.insert(11);
+	t.insert(16);
+	t.insert(14);
+	t.insert(18);
+	t.insert(42);
 	t.insert(2);
-	t.insert(5);
+	t.insert(6);
+	t.insert(9);
+	t.insert(1);
+	t.insert(7);
+	t.insert(50);
 	t.print() ;
 	cout<<"TESTING SIZE()"<<endl ;
 	treeSize =  t.size();
@@ -449,10 +472,13 @@ cout<<"tree size is : "<<treeSize<<endl ;
 	treeSize =  t.contains(100);
 	cout<<"contains answer is : "<<treeSize<<endl<<endl ;
 
-	cout<<"CONTINUE  "<<endl ;
+	cout<<"TESTING LEFT()  "<<endl ;
+	int left_child ;
+	left_child = t.left(10) ;
+	cout<<"left child is : " << left_child<<endl;
 	
 
 
 }
 
-*/		
+	*/	
