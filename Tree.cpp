@@ -330,13 +330,14 @@ void ariel::Tree::remove_value(Node* &root, int key)
 				else
 				{
 					try
-				{
-					throw std::invalid_argument("ERROR : Could not find the key in left son"); 		
-				}
-				catch(const std::exception& e)
-				{
-					std::cerr << e.what() << '\n';
-				}
+					{
+						throw std::invalid_argument("ERROR : Could not find the key in left son"); 		
+					}
+					catch(const std::exception& e)
+					{
+						std::cerr << e.what() << '\n';
+					}
+					return -1 ; 
 				
 				}
 					
@@ -546,7 +547,7 @@ void ariel::Tree:: print()
 			
 		
 
-
+/*
 int main()
 {
 ariel::Tree t ;
@@ -601,4 +602,4 @@ cout<<"tree size is : "<<treeSize<<endl ;
 
 }
 
-	
+	*/	
