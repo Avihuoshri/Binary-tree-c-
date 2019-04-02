@@ -442,7 +442,7 @@ void ariel::Tree::remove_value(Node* &root, int key)
 					
 					}				
 				}
-				else 
+				else
 				{
 					if (node->right != NULL)
 						return node->right->key;
@@ -451,14 +451,14 @@ void ariel::Tree::remove_value(Node* &root, int key)
 					{
 						try
 						{
-							throw std::invalid_argument("ERROE : Right child does not exist!");
+							throw std::invalid_argument("ERROR : Right child does not exist!");
 						}
 						catch(const std::exception& e)
 						{
 							std::cerr << e.what() << '\n';
 						}
 						
-
+							return -1;
 					}
 				}
 			}
@@ -496,8 +496,7 @@ void ariel::Tree::remove_value(Node* &root, int key)
 						}
 					
 				}	
-				else
-				{
+				
 					if (key == node->left->key)
 						return node->key;
 
@@ -509,7 +508,6 @@ void ariel::Tree::remove_value(Node* &root, int key)
 
 					else
 						return getParent(node->right, key);
-				}
 				
 			}
 
@@ -547,7 +545,7 @@ void ariel::Tree:: print()
 			
 		
 
-/*
+
 int main()
 {
 ariel::Tree t ;
@@ -602,4 +600,4 @@ cout<<"tree size is : "<<treeSize<<endl ;
 
 }
 
-	*/	
+		
