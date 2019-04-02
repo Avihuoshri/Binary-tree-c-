@@ -394,45 +394,42 @@ void ariel::Tree::remove_value(Node* &root, int key)
 
 			int Tree:: parent(int key)
 			{
-				if(!contains(key))
+				if(contains(key)==false)
 				
 				        throw std::invalid_argument("the root is not exist");
-
-				
 
 				return getParent(_root, key);
 			}
 
 			int Tree:: getParent(Node * node, int key)
 			{
+				cout<<"node is : "<< node->key<< endl ;
 				if(key == node->key)
 				{
 					      throw std::invalid_argument("the root is not exist");
 				}	
-					if (node->left!= NULL)
-					{
-                          if(key == node->left->key)
-					{
-						return node->key;
+
+				 if (key < node->key && node->left!= NULL)
+						 {
+               if(key == node->left->key)
+							{
+								return node->key;
+							}
+							return getParent(node->left, key);
+
 					}
-					}
-					
-					 if (node->right != NULL)
+
+					if (key > node->key && node->right != NULL)
 					 {
-					  if(node->right->key)
+					  if(key == node->right->key)
 					  {
 						return node->key;
 					  }
-					
-					}
-
-					else if (key < node->key)
-						return getParent(node->left, key);
-
-					else
 						return getParent(node->right, key);
 				
-			}
+        	}
+					
+					}
 
 // void ariel::Tree:: print()
 // {
