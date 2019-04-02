@@ -24,7 +24,7 @@ using ariel::Node;
 		/* Tree::~Tree()
 		{
 			destroy_tree(_root);
-		}*/
+		}
 	
 	
 		
@@ -37,12 +37,12 @@ using ariel::Node;
 					delete leaf;
 				}
 			}
-	
+		*/
 		void ariel::Tree::insert(int key)
 		{
 		if(contains(key))
 		{
-		  throw std::invalid_argument("insert exception(value already on the 				tree)");
+		  throw std::invalid_argument("insert exception(value already on the tree)");
 		}
 		else if(_root!=nullptr)		
 		{
@@ -136,8 +136,6 @@ using ariel::Node;
 			}
 		}
 
-
-
 		 Node* ariel::Tree::minValueNode(Node* node)
 		{
 			 Node* current = node;
@@ -179,16 +177,13 @@ using ariel::Node;
 			{
 				try
 				{
-					{throw std::invalid_argument("The value does not exist!");}
+					throw std::invalid_argument("The value does not exist!");
 				}
 				catch(const std::exception& e)
 				{
 					std::cerr << e.what() << '\n';
 				}
-
-					
-
-				
+	
 			}
 			else	
 			{
@@ -263,8 +258,15 @@ void ariel::Tree::remove_value(Node* &root, int key)
 		{
 			if (_root == NULL)
 			{
-				throw std::invalid_argument("ERROE : value NOT found!");
-				return  0;
+				try
+				{
+					throw std::invalid_argument("ERROE : value NOT found!");
+				}
+				catch(const std::exception& e)
+				{
+					std::cerr << e.what() << '\n';
+				}
+				
 			}
 
 			return _root->key;
@@ -273,10 +275,30 @@ void ariel::Tree::remove_value(Node* &root, int key)
 		int Tree::left(int key)
 		{
 			if(!contains(key))
-				throw std::invalid_argument("ERROR : Left child does not exist!");
-		
+			{
+				try
+				{
+					throw std::invalid_argument("ERROR : Left child does not exist!");	
+				}
+				catch(const std::exception& e)
+				{
+					std::cerr << e.what() << '\n';
+				}
+				
+			}
 			else if((key == _root->key) && _root->left ==NULL)
-					throw std::invalid_argument("ERROR : Left child does not exist!");
+			{
+
+				try
+				{
+					throw std::invalid_argument("ERROR : Left child does not exist!");	
+				}
+				catch(const std::exception& e)
+				{
+					std::cerr << e.what() << '\n';
+				}
+			}
+					
 			else
 			{
 				int ans = getLeftChild(_root, key);
@@ -290,14 +312,34 @@ void ariel::Tree::remove_value(Node* &root, int key)
 		{
 			if (node == NULL)
 			{
-				throw std::invalid_argument("ERROR : Left child does not exist!"); 					return -1;
+
+				try
+				{
+					throw std::invalid_argument("ERROR : Left child does not exist!"); 		
+				}
+				catch(const std::exception& e)
+				{
+					std::cerr << e.what() << '\n';
+				}
+								
 			}
 			else if (key < node->key)
 			{
 				if (node->left != NULL)
 					return getLeftChild(node->left, key);
 				else
-					throw std::invalid_argument("ERROR : Could not find the key in left son");
+				{
+					try
+				{
+					throw std::invalid_argument("ERROR : Could not find the key in left son"); 		
+				}
+				catch(const std::exception& e)
+				{
+					std::cerr << e.what() << '\n';
+				}
+				
+				}
+					
 			}
 
 			else if (key > node->key)
@@ -305,7 +347,17 @@ void ariel::Tree::remove_value(Node* &root, int key)
 				if (node->right != NULL)
 					return getLeftChild(node->right, key);
 				else
-					throw std::invalid_argument("ERROR : Could not find the key in right son");
+				{
+						try
+						{
+							throw std::invalid_argument("ERROR : Could not find the key in right son");		
+						}
+						catch(const std::exception& e)
+						{
+							std::cerr << e.what() << '\n';
+						}
+				}
+					
 			}
 			else
 			{
@@ -314,8 +366,16 @@ void ariel::Tree::remove_value(Node* &root, int key)
 
 				else
 				{
-					throw std::invalid_argument("ERROR : Left child does not exist!");
-						return -1;
+					try
+						{
+							throw std::invalid_argument("ERROR : Left child does not exist!");	
+						}
+						catch(const std::exception& e)
+						{
+							std::cerr << e.what() << '\n';
+						}
+					
+					
 				}
 			}
 		}
@@ -330,7 +390,15 @@ void ariel::Tree::remove_value(Node* &root, int key)
 			{
 				if (node == nullptr)
 				{
-					throw std::invalid_argument("ERROR : Right child does not exist!");	
+					try
+						{
+							throw std::invalid_argument("ERROR : Right child does not exist!");	
+						}
+						catch(const std::exception& e)
+						{
+							std::cerr << e.what() << '\n';
+						}
+					
 					
 				}
 				else if (key < node->key)
@@ -340,7 +408,15 @@ void ariel::Tree::remove_value(Node* &root, int key)
 					
 					else
 					{
-					throw std::invalid_argument("ERROR : Could not find the key in left son");
+						try
+						{
+							throw std::invalid_argument("ERROR : Could not find the key in left son");
+						}
+						catch(const std::exception& e)
+						{
+							std::cerr << e.what() << '\n';
+						}
+					
 
 					}
 			
@@ -353,8 +429,15 @@ void ariel::Tree::remove_value(Node* &root, int key)
 
 					else
 					{
-					throw std::invalid_argument("ERROR : Could not find the key in right son");
-
+						try
+						{
+							throw std::invalid_argument("ERROR : Could not find the key in right son");
+						}
+						catch(const std::exception& e)
+						{
+							std::cerr << e.what() << '\n';
+						}
+					
 					}				
 				}
 				else 
@@ -364,7 +447,15 @@ void ariel::Tree::remove_value(Node* &root, int key)
 
 					else 
 					{
-						throw std::invalid_argument("ERROE : Right child does not exist!");
+						try
+						{
+							throw std::invalid_argument("ERROE : Right child does not exist!");
+						}
+						catch(const std::exception& e)
+						{
+							std::cerr << e.what() << '\n';
+						}
+						
 
 					}
 				}
@@ -374,10 +465,18 @@ void ariel::Tree::remove_value(Node* &root, int key)
 			{
 				if(!contains(key))
 				{
-					throw std::invalid_argument("ERROR : The given number is not in the tree!");
+					try
+						{
+							throw std::invalid_argument("ERROR : The given number is not in the tree!");
+						}
+						catch(const std::exception& e)
+						{
+							std::cerr << e.what() << '\n';
+						}
+					
 
 				}
-				
+
 				return getParent(_root, key);
 			}
 
@@ -385,8 +484,15 @@ void ariel::Tree::remove_value(Node* &root, int key)
 			{
 				if(key == node->key)
 				{
-					throw std::invalid_argument("ERROR : The given number is the root itself that is whY it don't have any parent");
-					return -1;
+					try
+						{
+							throw std::invalid_argument("ERROR : The given number is the root itself that is whY it don't have any parent");
+						}
+						catch(const std::exception& e)
+						{
+							std::cerr << e.what() << '\n';
+						}
+					
 				}	
 				else
 				{
@@ -408,7 +514,17 @@ void ariel::Tree::remove_value(Node* &root, int key)
 void ariel::Tree:: print()
 {
 	if(_root == nullptr)
-		throw std::invalid_argument("harta");
+	{
+		try
+						{
+							throw std::invalid_argument("root is NULL");
+						}
+						catch(const std::exception& e)
+						{
+							std::cerr << e.what() << '\n';
+						}
+	}
+		
 	else
 		return print(_root);
 
