@@ -395,34 +395,38 @@ void ariel::Tree::remove_value(Node* &root, int key)
 			int Tree:: parent(int key)
 			{
 				if(!contains(key))
-				{
-				        throw std::invalid_argument("the root is not exist");	
-				}
+				
+				        throw std::invalid_argument("the root is not exist");
+
+				
 
 				return getParent(_root, key);
 			}
 
-			int Tree:: getParent(Node* node, int key)
+			int Tree:: getParent(Node * node, int key)
 			{
-				cout<<"node is : "<<node->key<<endl ;
 				if(key == node->key)
 				{
-					        throw std::invalid_argument("the root is not exist");
-					
+					      throw std::invalid_argument("the root is not exist");
 				}	
-				
-					if((node->left) != nullptr)
+					if (node->left!= NULL)
 					{
-						if (key == node->left->key)
+                          if(key == node->left->key)
+					{
 						return node->key;
+					}
+					}
+					
+					 if (node->right != NULL)
+					 {
+					  if(node->right->key)
+					  {
+						return node->key;
+					  }
+					
 					}
 
-					else if ((node->right) != nullptr )
-					{
-						if(key == node->right->key)
-						return node->key;
-					}
-					else if (key < (node->key))
+					else if (key < node->key)
 						return getParent(node->left, key);
 
 					else
@@ -430,38 +434,66 @@ void ariel::Tree::remove_value(Node* &root, int key)
 				
 			}
 
-void ariel::Tree:: print()
-{
-	if(_root == nullptr)
-	{
-		try
-						{
-							throw std::invalid_argument("root is NULL");
-						}
-						catch(const std::exception& e)
-						{
-							std::cerr << e.what() << '\n';
-						}
-	}
+// void ariel::Tree:: print()
+// {
+// 	if(_root == nullptr)
+// 	{
+// 		try
+// 						{
+// 							throw std::invalid_argument("root is NULL");
+// 						}
+// 						catch(const std::exception& e)
+// 						{
+// 							std::cerr << e.what() << '\n';
+// 						}
+// 	}
 		
-	else
-		return print(_root);
+// 	else
+// 		return print(_root);
 
-}
-			void ariel::Tree:: print(Node* node)
-			{
+// }
+			// void ariel::Tree:: print(Node* node)
+			// {
 				
-				if (node == nullptr)
-					return;
+			// 	if (node == nullptr)
+			// 		return;
 					
 			
-				print(node->left);
+			// 	print(node->left);
 
-				cout << node->key  << endl ;
+			// 	cout << node->key  << endl ;
 
-				print(node->right);
-			}
+			// 	print(node->right);
+			// }
+
 			
+			void ariel::Tree::print2DUtil(Node *root, int space)
+
+{
+
+    // Base case
+    if (root == NULL)
+        return;
+    // Increase distance between levels
+    space += COUNT;
+    // Process right child first
+    print2DUtil(root->right, space);
+    // Print current node after space
+    // count
+
+    cout << endl;
+
+    for (int i = COUNT; i < space; i++)
+        cout << " ";
+    cout << root->key << "\n";
+    // Process left child
+    print2DUtil(root->left, space);
+}
+void ariel::Tree::print()
+{
+
+    print2DUtil(_root, 0);
+}
 		
 
 /*
@@ -514,5 +546,9 @@ cout<<"tree size is : "<<treeSize<<endl ;
 	int left_child ;
 	left_child = t.left(10) ;
 	cout<<"left child is : " << left_child<<endl;
+	
+
+
 }
+
 	*/	

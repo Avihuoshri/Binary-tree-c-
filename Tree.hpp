@@ -1,4 +1,5 @@
 #include<iostream>
+#define COUNT 10
 
 //I used this code from cprograming.com/tutorial/lesson18.html
 namespace ariel
@@ -48,7 +49,10 @@ class Node{
                 int    getLeftChild(Node* node , int key);
                 int    getRightChild(Node* node , int key);
                 int    getParent(Node* node, int key);
-                void   print(Node* node) ;
+               void print2DUtil(Node *_root, int space);
+
+             //   void   print(Node* node) ;
+
                 void   destroy_tree(Node* leaf);
                 /* Node search__key(int key, Node* leaf);*/
 
