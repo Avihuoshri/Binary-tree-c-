@@ -1,5 +1,6 @@
 #include<iostream>
 #include<stdexcept>
+#include<exception>
 #include"Tree.hpp"
 
 
@@ -11,13 +12,13 @@ using ariel::Node;
 /*ariel::Node::~Node(){
 	if(left!=nullptr){delete left; left=nullptr;}
 	if(right!=nullptr){delete right; right=nullptr;}
-}
-*/
+}*/
+
 	ariel::Node::Node():Node(0) {}
 	ariel::Node::Node(int num) :key(num),left(NULL),right(NULL) {}
 	ariel::Tree::Tree()
 	{
-		_root = NULL;
+		_root = nullptr;
 	}
 
 		/* Tree::~Tree()
@@ -29,7 +30,7 @@ using ariel::Node;
 		
 		void ariel::Tree::destroy_tree(Node* leaf)
 			{
-				if (leaf != NULL)
+				if (leaf != nullptr)
 				{
 					destroy_tree(leaf->left);
 					destroy_tree(leaf->right);
@@ -39,11 +40,11 @@ using ariel::Node;
 	
 		void ariel::Tree::insert(int key)
 		{
-			if(contains(key))
+		if(contains(key))
 		{
-			throw std::invalid_argument("insert exception(value already on the 				tree)");
+		  throw std::invalid_argument("insert exception(value already on the 				tree)");
 		}
-		else if(_root!=NULL)		
+		else if(_root!=nullptr)		
 		{
 			insert_value(key,_root);
 		}
@@ -53,7 +54,7 @@ using ariel::Node;
 
 		void Tree::insert_value(int key, Node* leaf)
 		{
-			if(leaf==NULL)
+			if(leaf==nullptr)
 			{
 				
 				 leaf=new Node(key);
@@ -63,7 +64,7 @@ using ariel::Node;
 			else if (key < leaf->key)
 			{						
 				
-				if (leaf->left != NULL)
+				if (leaf->left != nullptr)
 				{
 					
 					insert_value(key, leaf->left);
@@ -72,7 +73,7 @@ using ariel::Node;
 				{
 					
 					leaf->left = new Node(key);
-					      //Sets the right child of the child node to NULL
+					      //Sets the right child of the node to NULL
 				}
 			}
 
@@ -124,10 +125,15 @@ using ariel::Node;
 
 		int ariel::Tree::Tree_size(Node* node)
 		{
+			int treeSize = 0 ;
+
 			if (node == NULL)
 				return 0;
 			else
+			{
 				return Tree_size(node->left) + 1 + Tree_size(node->right);
+				
+			}
 		}
 
 
@@ -169,10 +175,27 @@ using ariel::Node;
 
 		 void ariel::Tree::remove( int key )
 		{
+			cout<<"SSTAAAM"<<endl ;
 			if(!contains(key))
-				throw std::invalid_argument("The vakue does not exist!");
+			{
+				cout<<"in if(!contains(key) )"<<endl;
+												cout<<"AFTER THROW"<<endl;
+				try
+				{
+					{throw std::invalid_argument("The value does not exist!");}
+				}
+				catch(const std::exception& e)
+				{
+					std::cerr << e.what() << '\n';
+				}
+
+					
+
+				
+			}
 			else	
 			{
+				cout<<"in remove.else"<<endl ;
 				remove_value(_root, key);
 			}	
 		}
@@ -396,6 +419,47 @@ void ariel::Tree:: print()
 			}
 			
 		
+int main()
+{
+ariel::Tree t ;
+	int treeSize =  t.size();
+cout<<"tree size is : "<<treeSize<<endl ;
+	t.insert(10);
+	t.insert(4);
+	t.insert(20);
+	t.insert(30);
+	t.insert(25);
+	t.insert(2);
+	t.insert(5);
+	t.print() ;
+	cout<<"TESTING SIZE()"<<endl ;
+	treeSize =  t.size();
+	cout<<"tree size is : "<<treeSize<<endl<<endl ;
 
-			
+	cout<<"TESTING CONTAINS() - TRUE "<<endl ;
+	treeSize =  t.contains(5);
+	cout<<"contains answer is : "<<treeSize<<endl<<endl ;
 
+	cout<<"TESTING CONTAINS() - FALSE "<<endl ;
+	treeSize =  t.contains(100);
+	cout<<"contains answer is : "<<treeSize<<endl<<endl ;
+
+	cout<<"TESTING REMOVE()  "<<endl ;
+	t.remove(100);
+	treeSize =  t.contains(100);
+	cout<<"contains answer is : "<<treeSize<<endl<<endl ;
+
+	cout<<"CONTINUE  "<<endl ;
+	
+
+
+
+
+
+
+
+	
+
+}
+
+		
